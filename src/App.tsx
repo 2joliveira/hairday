@@ -1,5 +1,7 @@
+import { Text } from "./components";
+
 export default function App() {
   return ( 
-    <div className="text-yellow-dark">Hello</div>
+    <Text variant="title-lg" className="text-gray-100">Teste</Text>
   )
 }
