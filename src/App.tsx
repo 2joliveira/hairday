@@ -1,6 +1,6 @@
-import { Icon, Text } from "./components";
-import TrashIcon from "./assets/icons/trash.svg?react";
-import SpinnerIcon from "./assets/icons/spinner.svg?react";
+import { Button, ButtonIcon, Icon, Text } from "@/components";
+import TrashIcon from "@/assets/icons/trash.svg?react";
+import SpinnerIcon from "@/assets/icons/spinner.svg?react";
 
 export default function App() {
   return (
@@ -9,6 +9,10 @@ export default function App() {
 
       <Icon svg={TrashIcon} size="md" variant="primary" />
       <Icon svg={SpinnerIcon} animate size="sm" variant="secondary" />
+
+      <ButtonIcon icon={TrashIcon} />
+
+      <Button>TESTE</Button>
     </div>
   )
 }
