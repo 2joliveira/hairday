@@ -1,6 +1,6 @@
-import { Icon, Text } from "./components";
-import TrashIcon from "./assets/icons/trash.svg?react";
-import SpinnerIcon from "./assets/icons/spinner.svg?react";
+import { Icon, Text } from "@/components";
+import TrashIcon from "@/assets/icons/trash.svg?react";
+import SpinnerIcon from "@/assets/icons/spinner.svg?react";
 
 export default function App() {
   return (
