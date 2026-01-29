@@ -1,4 +1,4 @@
-import { Icon, Text } from "@/components";
+import { ButtonIcon, Icon, Text } from "@/components";
 import TrashIcon from "@/assets/icons/trash.svg?react";
 import SpinnerIcon from "@/assets/icons/spinner.svg?react";
 
@@ -9,6 +9,8 @@ export default function App() {
 
       <Icon svg={TrashIcon} size="md" variant="primary" />
       <Icon svg={SpinnerIcon} animate size="sm" variant="secondary" />
+
+      <ButtonIcon icon={TrashIcon} />
     </div>
   )
 }
