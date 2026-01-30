@@ -5,6 +5,7 @@ export const iconVariants = cva("", {
     variant: { 
       primary: "fill-yellow",
       secondary: "fill-yellow-dark",
+      terciary: "fill-gray-400"
     },
     size: {
       sm: "w-4 h-4",
@@ -26,6 +27,6 @@ interface IconProps extends React.ComponentProps<"svg">, VariantProps<typeof ico
   svg: React.FC<React.ComponentProps<"svg">>;
 }
 
-export function Icon({ svg: SVGComponent, animate, className, ...props }: IconProps) {
-  return <SVGComponent className={iconVariants({ animate, className })} {...props} />
+export function Icon({ variant, svg: SVGComponent, animate, className, ...props }: IconProps) {
+  return <SVGComponent className={iconVariants({ variant, animate, className })} {...props} />
 }
