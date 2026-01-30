@@ -7,7 +7,7 @@ export const inputTextVariants = cva(
   {
     variants: {
       variant: {
-        primary: "h-12 w-85 rounded-lg border border-gray-400 focus-within:border-yellow-dark text-gray-200"
+        primary: "h-12 w-85 rounded-lg border border-gray-500 focus-within:border-yellow-dark text-gray-200"
       }
     },
     defaultVariants: {
