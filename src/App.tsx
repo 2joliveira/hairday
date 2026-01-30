@@ -1,6 +1,7 @@
-import { Button, ButtonIcon, Icon, Text } from "@/components";
+import { Button, ButtonIcon, Icon, InputText, Text } from "@/components";
 import TrashIcon from "@/assets/icons/trash.svg?react";
 import SpinnerIcon from "@/assets/icons/spinner.svg?react";
+import UserSquareIcon from "@/assets/icons/userSquare.svg?react";
 
 export default function App() {
   return (
@@ -13,6 +14,8 @@ export default function App() {
       <ButtonIcon icon={TrashIcon} />
 
       <Button>TESTE</Button>
+
+      <InputText icon={UserSquareIcon} placeholder="Nome do Cliente" />
     </div>
   )
 }
