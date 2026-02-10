@@ -16,6 +16,7 @@ export function ScheduleAppointment() {
         <Text as="h2" variant="title-lg" className="text-gray-100">
           Agende um atendimento
         </Text>
+        
         <Text as="p" variant="text-sm" className="text-gray-300">
           Selecione data, horário e informe o nome do cliente para criar o
           agendamento
