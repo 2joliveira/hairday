@@ -19,7 +19,7 @@ const mockitems = [
 
 export function Listcard({ icon, title, timeInterval }: ListcardProps) {
   return (
-    <div className="mt-8 border border-gray-600 rounded-lg">
+    <div className="border border-gray-600 rounded-lg">
       <header className="px-5 py-3 flex items-center justify-between gap-3 border-b border-b-gray-600">
         <Icon size="md" svg={icon} className={iconVariants({})} />
 
