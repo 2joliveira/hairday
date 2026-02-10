@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority"
 import { Text } from "./text"
 
-export const timeSelectVarianats = cva("w-[78.5px] h-10 rounded-lg", {
+export const timeSelectVarianats = cva("min-w-[78.5px] h-10 rounded-lg", {
   variants: {
     variant: {
       primary: "bg-gray-600 border border-gray-500 hover:bg-gray-500 text-gray-200"
