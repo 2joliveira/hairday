@@ -4,6 +4,7 @@ import { ButtonIcon } from "./buttonIcon";
 import { Button } from "./button";
 import { InputText } from "./inputText";
 import { InputDate } from "./inputDate";
+import { TimeSelect } from "./timeSelect";
 
 export {
   Text,
@@ -12,4 +13,5 @@ export {
   ButtonIcon,
   InputText,
   InputDate,
+  TimeSelect,
 }
