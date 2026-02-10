@@ -19,5 +19,8 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    roles: {
+      "eslint(react-refresh/only-export-components)": "false"
+    }
   },
 ])
