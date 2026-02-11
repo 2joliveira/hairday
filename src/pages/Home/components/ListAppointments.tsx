@@ -3,7 +3,7 @@ import { InputDate, Text } from "@/components/ui";
 
 import CloudSun from "@/assets/icons/cloudSun.svg?react";
 
-export function Schedule() {
+export function ListAppointments() {
   return (
     <div className="flex-1 py-6 px-4 xl:px-20 2xl:px-40 lg:overflow-y-scroll">
       <header className="flex items-center justify-between gap-4 mb-8">

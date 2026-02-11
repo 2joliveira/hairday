@@ -8,15 +8,20 @@ import {
 import { hourToTime } from "@/utils/hourToTime";
 
 import UserSquare from "@/assets/icons/userSquare.svg?react";
+import { useAppointments } from "@/hooks/use-appointments";
 
-export function ScheduleAppointment() {
+export function Sidebar() {
+  const { appointments } = useAppointments();
+
+  console.log("appointments", appointments);
+
   return (
     <div className="h-full w-full lg:w-124.5 py-6 px-6 lg:px-18 flex flex-col items-start justify-between bg-gray-700 rounded-xl">
       <header className="mb-6 flex flex-col gap-1">
         <Text as="h2" variant="title-lg" className="text-gray-100">
           Agende um atendimento
         </Text>
-        
+
         <Text as="p" variant="text-sm" className="text-gray-300">
           Selecione data, horário e informe o nome do cliente para criar o
           agendamento
@@ -68,7 +73,11 @@ export function ScheduleAppointment() {
           <Text as="p" className="text-gray-200">
             Cliente
           </Text>
-          <InputText icon={UserSquare} placeholder="Nome do cliente" className="w-full" />
+          <InputText
+            icon={UserSquare}
+            placeholder="Nome do cliente"
+            className="w-full"
+          />
         </div>
       </form>
 
