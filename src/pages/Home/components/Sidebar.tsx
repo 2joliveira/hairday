@@ -58,7 +58,7 @@ export function Sidebar() {
         </Text>
       </header>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 mb-6 w-full">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 w-full">
         <div className="flex flex-col gap-2 w-full">
           <Text as="p" className="text-gray-200">
             Data
@@ -67,7 +67,7 @@ export function Sidebar() {
             control={control}
             name="date"
             render={({ field: { value, onChange } }) => (
-              <InputDate value={new Date(value)} onChange={onChange} />
+              <InputDate value={new Date(value)} onChange={onChange} minDate={new Date()} />
             )}
           />
         </div>

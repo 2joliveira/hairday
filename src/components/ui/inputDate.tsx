@@ -30,9 +30,10 @@ export const inputDateVariants = cva(
 interface InputDateProps extends VariantProps<typeof inputDateVariants> {
   value: Date;
   onChange: (date: Date) => void
+  minDate?: Date;
 }
 
-export function InputDate({ variant, size, value, onChange }: InputDateProps) {
+export function InputDate({ variant, size, value, onChange, minDate }: InputDateProps) {
   const datePickerRef = useRef<DatePicker | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -53,7 +54,7 @@ export function InputDate({ variant, size, value, onChange }: InputDateProps) {
         onCalendarOpen={() => setIsOpen(true)}
         onCalendarClose={() => setIsOpen(false)}
         onKeyDown={(e) => e.preventDefault()}
-        minDate={(new Date())}
+        minDate={minDate}
         disabledKeyboardNavigation
       />
 

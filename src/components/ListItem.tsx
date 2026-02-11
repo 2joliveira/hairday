@@ -3,7 +3,7 @@ import { ButtonIcon, Text } from "./ui";
 import TrashIcon from "@/assets/icons/trash.svg?react";
 
 interface ListItemProps {
-  hour: string;
+  hour: number;
   clientName: string;
 }
 
