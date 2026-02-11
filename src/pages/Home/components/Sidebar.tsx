@@ -14,6 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { appointment, type Appointment } from "@/models/appointment";
 import { v4 as uuidV4 } from "uuid";
 import { useAppointment } from "@/hooks/use-appointment";
+import { Error } from "@/components/Error";
 
 export function Sidebar() {
   const {
@@ -26,8 +27,8 @@ export function Sidebar() {
     resolver: zodResolver(appointment),
     defaultValues: {
       id: uuidV4(),
-      client_name: "",
       date: new Date(),
+      client_name: "",
     },
   });
   const { appointments } = useAppointments(new Date(watch("date")));
@@ -43,8 +44,6 @@ export function Sidebar() {
     Tarde: [13, 14, 15, 16, 17, 18],
     Noite: [19, 20, 21],
   };
-
-  console.log("appointments", appointments);
 
   return (
     <div className="h-full w-full lg:w-124.5 py-6 px-6 lg:px-18 flex flex-col items-start justify-between bg-gray-700 rounded-xl">
@@ -73,7 +72,7 @@ export function Sidebar() {
           />
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="relative flex flex-col gap-4">
           <Controller
             control={control}
             name="hour"
@@ -107,9 +106,10 @@ export function Sidebar() {
               </div>
             )}
           />
+          {errors.hour?.message && <Error error={errors.hour.message} />}
         </div>
 
-        <div className="flex flex-col gap-2 w-full">
+        <div className="relative flex flex-col gap-2 w-full">
           <Text as="p" className="text-gray-200">
             Cliente
           </Text>
@@ -126,6 +126,7 @@ export function Sidebar() {
               />
             )}
           />
+          {errors.client_name?.message && <Error error={errors.client_name.message} />}
         </div>
 
         <Button type="submit" className="w-full">

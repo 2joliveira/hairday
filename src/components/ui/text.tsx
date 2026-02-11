@@ -9,12 +9,13 @@ export const textVariants = cva("font-sans p-0 m-0", {
       "title-sm": "text-sm leading-5 font-bold",
       "text-md": "text-[16px] leading-6 font-normal",
       "text-sm": "text-sm leading-5 font-normal",
+      "text-xs": "text-xs leading-4 font-normal",
     },
   },
   defaultVariants: {
     variant: "text-md",
-  }
-})
+  },
+});
 
 interface TextProps extends VariantProps<typeof textVariants> {
   as?: keyof React.JSX.IntrinsicElements;
@@ -22,13 +23,19 @@ interface TextProps extends VariantProps<typeof textVariants> {
   children: React.ReactNode;
 }
 
-export function Text({ as = "span", variant, className, children, ...props }: TextProps) {
+export function Text({
+  as = "span",
+  variant,
+  className,
+  children,
+  ...props
+}: TextProps) {
   return React.createElement(
     as,
     {
       className: textVariants({ variant, className }),
       ...props,
     },
-    children
-  )
+    children,
+  );
 }

@@ -8,7 +8,6 @@ export function useAppointment() {
   );
 
   function createAppointment(appointment: Appointment) {
-    console.log("hook appointment", appointment);
     setAppointments([...appointments, appointment]);
   }
 
