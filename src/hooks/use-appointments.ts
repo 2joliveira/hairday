@@ -7,7 +7,9 @@ export function useAppointments(date?: Date) {
 
   return {
     appointments: appointments.filter(
-      (appointment) => appointment.date === currentDate,
+      (appointment) =>
+        new Date(appointment.date).getDate() === currentDate.getDate() &&
+        new Date(appointment.date).getMonth() === currentDate.getMonth(),
     ),
   };
 }

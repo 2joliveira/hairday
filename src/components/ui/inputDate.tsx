@@ -27,11 +27,13 @@ export const inputDateVariants = cva(
   }
 )
 
-interface InputDateProps extends VariantProps<typeof inputDateVariants> {}
+interface InputDateProps extends VariantProps<typeof inputDateVariants> {
+  value: Date;
+  onChange: (date: Date) => void
+}
 
-export function InputDate({ variant, size }: InputDateProps) {
+export function InputDate({ variant, size, value, onChange }: InputDateProps) {
   const datePickerRef = useRef<DatePicker | null>(null);
-  const [startDate, setStartDate] = useState(new Date());
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -44,8 +46,8 @@ export function InputDate({ variant, size }: InputDateProps) {
       <DatePicker
         ref={datePickerRef}
         className={cx(textVariants({ variant: "text-md" }), "w-20 outline-none")}
-        selected={startDate}
-        onChange={(date: Date | null) => date && setStartDate(date)}
+        selected={value}
+        onChange={(date: Date | null) => date && onChange(date)}
         locale={ptBR}
         dateFormat="dd-MM-yyyy"
         onCalendarOpen={() => setIsOpen(true)}

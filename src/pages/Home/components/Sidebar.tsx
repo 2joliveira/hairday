@@ -9,9 +9,40 @@ import { hourToTime } from "@/utils/hourToTime";
 
 import UserSquare from "@/assets/icons/userSquare.svg?react";
 import { useAppointments } from "@/hooks/use-appointments";
+import { Controller, useForm, type SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { appointment, type Appointment } from "@/models/appointment";
+import { v4 as uuidV4 } from "uuid";
+import { useAppointment } from "@/hooks/use-appointment";
 
 export function Sidebar() {
-  const { appointments } = useAppointments();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    reset,
+  } = useForm({
+    resolver: zodResolver(appointment),
+    defaultValues: {
+      id: uuidV4(),
+      client_name: "",
+      date: new Date(),
+    },
+  });
+  const { appointments } = useAppointments(new Date(watch("date")));
+  const { createAppointment } = useAppointment();
+
+  const onSubmit: SubmitHandler<Appointment> = (data) => {
+    createAppointment(data);
+    reset();
+  };
+
+  const periods = {
+    Manhã: [9, 10, 11, 12],
+    Tarde: [13, 14, 15, 16, 17, 18],
+    Noite: [19, 20, 21],
+  };
 
   console.log("appointments", appointments);
 
@@ -28,60 +59,79 @@ export function Sidebar() {
         </Text>
       </header>
 
-      <form className="space-y-8 mb-6 w-full">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 mb-6 w-full">
         <div className="flex flex-col gap-2 w-full">
           <Text as="p" className="text-gray-200">
             Data
           </Text>
-          <InputDate />
+          <Controller
+            control={control}
+            name="date"
+            render={({ field: { value, onChange } }) => (
+              <InputDate value={new Date(value)} onChange={onChange} />
+            )}
+          />
         </div>
 
-        <div className="flex flex-col gap-2 w-full">
-          <Text as="p" className="text-gray-200">
-            Horários
-          </Text>
+        <div className="flex flex-col gap-4">
+          <Controller
+            control={control}
+            name="hour"
+            render={({ field: { value, onChange } }) => (
+              <div>
+                {Object.entries(periods).map(([label, hours]) => (
+                  <div key={label} className="flex flex-col gap-2">
+                    <p className="text-sm text-gray-300">{label}</p>
 
-          <Text as="p" variant="text-sm" className="text-gray-300">
-            Manhã
-          </Text>
-          <div className="flex flex-wrap gap-2">
-            {[9, 10, 11, 12].map((time) => (
-              <TimeSelect>{hourToTime(time)}</TimeSelect>
-            ))}
-          </div>
+                    <div className="flex flex-wrap gap-2">
+                      {hours.map((hour) => {
+                        const formatted = hourToTime(hour);
 
-          <Text as="p" variant="text-sm" className="text-gray-300">
-            Tarde
-          </Text>
-          <div className="flex flex-wrap gap-2">
-            {[13, 14, 15, 16, 17, 18].map((time) => (
-              <TimeSelect>{hourToTime(time)}</TimeSelect>
-            ))}
-          </div>
-
-          <Text as="p" variant="text-sm" className="text-gray-300">
-            Noite
-          </Text>
-          <div className="flex flex-wrap gap-2">
-            {[19, 20, 21].map((time) => (
-              <TimeSelect>{hourToTime(time)}</TimeSelect>
-            ))}
-          </div>
+                        return (
+                          <TimeSelect
+                            key={hour}
+                            type="button"
+                            selected={value === hour}
+                            onClick={() => onChange(hour)}
+                            disabled={appointments.some(
+                              (appointment) => appointment.hour === hour,
+                            )}
+                          >
+                            {formatted}
+                          </TimeSelect>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          />
         </div>
 
         <div className="flex flex-col gap-2 w-full">
           <Text as="p" className="text-gray-200">
             Cliente
           </Text>
-          <InputText
-            icon={UserSquare}
-            placeholder="Nome do cliente"
-            className="w-full"
+          <Controller
+            control={control}
+            name="client_name"
+            render={({ field: { value, onChange } }) => (
+              <InputText
+                icon={UserSquare}
+                placeholder="Nome do cliente"
+                className="w-full"
+                value={value}
+                onChange={onChange}
+              />
+            )}
           />
         </div>
-      </form>
 
-      <Button className="w-full">AGENDAR</Button>
+        <Button type="submit" className="w-full">
+          AGENDAR
+        </Button>
+      </form>
     </div>
   );
 }
