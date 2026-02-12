@@ -6,12 +6,4 @@ import { InputText } from "./inputText";
 import { InputDate } from "./inputDate";
 import { TimeSelect } from "./timeSelect";
 
-export {
-  Text,
-  Icon,
-  Button,
-  ButtonIcon,
-  InputText,
-  InputDate,
-  TimeSelect,
-}
+export { Text, Icon, Button, ButtonIcon, InputText, InputDate, TimeSelect };

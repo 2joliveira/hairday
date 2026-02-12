@@ -1,3 +1,8 @@
+import { Controller, useForm, type SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { v4 as uuidV4 } from "uuid";
+import { useAppointments } from "@/hooks/use-appointments";
+import { useAppointment } from "@/hooks/use-appointment";
 import {
   Button,
   InputDate,
@@ -5,16 +10,15 @@ import {
   Text,
   TimeSelect,
 } from "@/components/ui";
-import { hourToTime } from "@/utils/hourToTime";
-
-import UserSquare from "@/assets/icons/userSquare.svg?react";
-import { useAppointments } from "@/hooks/use-appointments";
-import { Controller, useForm, type SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { appointment, type Appointment } from "@/models/appointment";
-import { v4 as uuidV4 } from "uuid";
-import { useAppointment } from "@/hooks/use-appointment";
 import { Error } from "@/components/Error";
+import { hourToTime } from "@/utils/hourToTime";
+import {
+  appointment,
+  PERIODS,
+  type Appointment,
+  type PeriodKey,
+} from "@/models/appointment";
+import UserSquare from "@/assets/icons/userSquare.svg?react";
 
 export function Sidebar() {
   const {
@@ -36,17 +40,21 @@ export function Sidebar() {
 
   const onSubmit: SubmitHandler<Appointment> = (data) => {
     createAppointment(data);
-    reset();
+    reset({
+      id: uuidV4(),
+      date: new Date(),
+      client_name: "",
+    });
   };
 
-  const periods = {
-    Manhã: [9, 10, 11, 12],
-    Tarde: [13, 14, 15, 16, 17, 18],
-    Noite: [19, 20, 21],
+  const periods: Record<PeriodKey, number[]> = {
+    morning: [9, 10, 11, 12],
+    afternoon: [13, 14, 15, 16, 17, 18],
+    night: [19, 20, 21],
   };
 
   return (
-    <div className="h-full w-full lg:w-124.5 py-6 px-6 lg:px-18 flex flex-col items-start justify-between bg-gray-700 rounded-xl">
+    <div className="h-full w-full lg:w-124.5 pt-20 pb-6 px-6 lg:px-18 flex flex-col items-start justify-between bg-gray-700 rounded-xl">
       <header className="mb-6 flex flex-col gap-1">
         <Text as="h2" variant="title-lg" className="text-gray-100">
           Agende um atendimento
@@ -67,7 +75,11 @@ export function Sidebar() {
             control={control}
             name="date"
             render={({ field: { value, onChange } }) => (
-              <InputDate value={new Date(value)} onChange={onChange} minDate={new Date()} />
+              <InputDate
+                value={new Date(value)}
+                onChange={onChange}
+                minDate={new Date()}
+              />
             )}
           />
         </div>
@@ -78,31 +90,35 @@ export function Sidebar() {
             name="hour"
             render={({ field: { value, onChange } }) => (
               <div>
-                {Object.entries(periods).map(([label, hours]) => (
-                  <div key={label} className="flex flex-col gap-2">
-                    <p className="text-sm text-gray-300">{label}</p>
+                {(Object.keys(periods) as PeriodKey[]).map((label) => {
+                  const hours = periods[label];
 
-                    <div className="flex flex-wrap gap-2">
-                      {hours.map((hour) => {
-                        const formatted = hourToTime(hour);
+                  return (
+                    <div key={label} className="flex flex-col gap-2">
+                      <p className="text-sm text-gray-300">{PERIODS[label].period}</p>
 
-                        return (
-                          <TimeSelect
-                            key={hour}
-                            type="button"
-                            selected={value === hour}
-                            onClick={() => onChange(hour)}
-                            disabled={appointments.some(
-                              (appointment) => appointment.hour === hour,
-                            )}
-                          >
-                            {formatted}
-                          </TimeSelect>
-                        );
-                      })}
+                      <div className="flex flex-wrap gap-2">
+                        {hours.map((hour) => {
+                          const formatted = hourToTime(hour);
+
+                          return (
+                            <TimeSelect
+                              key={hour}
+                              type="button"
+                              selected={value === hour}
+                              onClick={() => onChange(hour)}
+                              disabled={appointments.some(
+                                (appointment) => appointment.hour === hour,
+                              )}
+                            >
+                              {formatted}
+                            </TimeSelect>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           />
@@ -126,7 +142,9 @@ export function Sidebar() {
               />
             )}
           />
-          {errors.client_name?.message && <Error error={errors.client_name.message} />}
+          {errors.client_name?.message && (
+            <Error error={errors.client_name.message} />
+          )}
         </div>
 
         <Button type="submit" className="w-full">
