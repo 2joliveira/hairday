@@ -17,7 +17,7 @@ export const inputDateVariants = cva(
           "text-gray-200 border border-gray-500 focus-within:border-yellow-dark",
       },
       size: {
-        sm: "w-38 h-12",
+        sm: "min-w-38 h-12",
         lg: "w-full h-12",
       },
     },
@@ -66,6 +66,7 @@ export function InputDate({
         onKeyDown={(e) => e.preventDefault()}
         minDate={minDate}
         disabledKeyboardNavigation
+        popperPlacement="bottom-end"
       />
 
       <Icon

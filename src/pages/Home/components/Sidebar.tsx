@@ -54,7 +54,7 @@ export function Sidebar() {
   };
 
   return (
-    <div className="h-full w-full lg:w-124.5 py-6 px-6 lg:px-18 flex flex-col items-start justify-between bg-gray-700 rounded-xl">
+    <div className="h-full w-full lg:w-124.5 pt-20 pb-6 px-6 lg:px-18 flex flex-col items-start justify-between bg-gray-700 rounded-xl">
       <header className="mb-6 flex flex-col gap-1">
         <Text as="h2" variant="title-lg" className="text-gray-100">
           Agende um atendimento

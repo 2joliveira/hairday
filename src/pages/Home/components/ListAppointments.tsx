@@ -37,8 +37,8 @@ export function ListAppointments() {
     );
 
   return (
-    <div className="flex-1 py-6 px-4 xl:px-20 2xl:px-40 lg:overflow-y-scroll">
-      <header className="flex items-center justify-between gap-4 mb-8">
+    <div className="flex-1 pt-20 pb-6 px-4 xl:px-20 2xl:px-40 lg:overflow-y-scroll">
+      <header className="flex items-center justify-between gap-2 mb-8">
         <span>
           <Text as="h2" variant="title-lg" className="text-gray-100">
             Sua agenda
