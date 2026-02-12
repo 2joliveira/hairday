@@ -1,5 +1,5 @@
-import { APPOINTMENTS_KEY, type Appointment } from "@/models/appointment";
 import useLocalStorage from "use-local-storage";
+import { APPOINTMENTS_KEY, type Appointment } from "@/models/appointment";
 
 export function useAppointments(date?: Date) {
   const [appointments] = useLocalStorage<Appointment[]>(APPOINTMENTS_KEY, []);

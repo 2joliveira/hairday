@@ -11,11 +11,6 @@ interface ListcardProps {
 }
 
 export function Listcard({ icon, title, timeInterval, items }: ListcardProps) {
-
-  if (items.length < 1) {
-    return null
-  }
-
   return (
     <div className="border border-gray-600 rounded-lg">
       <header className="px-5 py-3 flex items-center justify-between gap-3 border-b border-b-gray-600">
@@ -30,15 +25,25 @@ export function Listcard({ icon, title, timeInterval, items }: ListcardProps) {
         </Text>
       </header>
 
-      <main className="p-5 gap-1">
-        {items.map((item) => (
-          <ListItem
-            key={item.id}
-            hour={item.hour}
-            clientName={item.client_name}
-          />
-        ))}
-      </main>
+      {items.length < 1 ? (
+        <Text
+          as="p"
+          variant="text-sm"
+          className="h-8 p-2 w-full text-center text-gray-500"
+        >
+          {`Não há agendamentos no período da ${title} !`}{" "}
+        </Text>
+      ) : (
+        <main className="p-5 gap-1">
+          {items.map((item) => (
+            <ListItem
+              key={item.id}
+              hour={item.hour}
+              clientName={item.client_name}
+            />
+          ))}
+        </main>
+      )}
     </div>
   );
 }

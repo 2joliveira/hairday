@@ -1,5 +1,5 @@
-import { cva, type VariantProps } from "class-variance-authority"
-import { Icon } from "./icon"
+import { cva, type VariantProps } from "class-variance-authority";
+import { Icon } from "./icon";
 
 export const buttonIcoVariants = cva(
   `cursor-pointer inline-flex justify-center items-center transition group`,
@@ -10,14 +10,14 @@ export const buttonIcoVariants = cva(
       },
       size: {
         sm: "w-6 h-6 p-1 rounded",
-      }
+      },
     },
     defaultVariants: {
       variant: "primary",
       size: "sm",
-    }
-  }
-)
+    },
+  },
+);
 
 export const buttonIconIconVariants = cva("transition", {
   variants: {
@@ -26,23 +26,34 @@ export const buttonIconIconVariants = cva("transition", {
     },
     size: {
       sm: "w-4 h-4",
-    }
+    },
   },
   defaultVariants: {
     variant: "primary",
-    size: "sm"
-  }
-})
+    size: "sm",
+  },
+});
 
 interface ButtonIconProps
-  extends Omit<React.ComponentProps<"button">, "size">, VariantProps<typeof buttonIcoVariants> {
+  extends
+    Omit<React.ComponentProps<"button">, "size">,
+    VariantProps<typeof buttonIcoVariants> {
   icon: React.ComponentProps<typeof Icon>["svg"];
 }
 
-export function ButtonIcon({ variant, size, icon, className, ...props }: ButtonIconProps) {
+export function ButtonIcon({
+  variant,
+  size,
+  icon,
+  className,
+  ...props
+}: ButtonIconProps) {
   return (
-    <button className={buttonIcoVariants({ variant, size, className })} {...props}>
+    <button
+      className={buttonIcoVariants({ variant, size, className })}
+      {...props}
+    >
       <Icon svg={icon} className={buttonIconIconVariants({ variant, size })} />
     </button>
-  )
+  );
 }

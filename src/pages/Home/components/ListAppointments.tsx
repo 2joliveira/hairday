@@ -1,37 +1,40 @@
 import { useState } from "react";
+import { useAppointments } from "@/hooks/use-appointments";
 import { Listcard } from "@/components/ListCard";
 import { InputDate, Text } from "@/components/ui";
-import { useAppointments } from "@/hooks/use-appointments";
-import type { Appointment } from "@/models/appointment";
-
-import CloudSun from "@/assets/icons/cloudSun.svg?react";
+import {
+  PERIODS,
+  type Appointment,
+  type PeriodKey,
+} from "@/models/appointment";
 
 export function ListAppointments() {
   const [date, setDate] = useState(new Date());
   const { appointments } = useAppointments(date);
 
-  const parsedAppointments = appointments.reduce<{
-    morning: Appointment[];
-    afternoon: Appointment[];
-    night: Appointment[];
-  }>(
-    (acc, item) => {
-      if (item.hour < 13) {
-        acc.morning.push(item);
-      } else if (item.hour < 19) {
-        acc.afternoon.push(item);
-      } else {
-        acc.night.push(item);
-      }
+  const parsedAppointments: Record<PeriodKey, Appointment[]> =
+    appointments.reduce<{
+      morning: Appointment[];
+      afternoon: Appointment[];
+      night: Appointment[];
+    }>(
+      (acc, item) => {
+        if (item.hour < 13) {
+          acc.morning.push(item);
+        } else if (item.hour < 19) {
+          acc.afternoon.push(item);
+        } else {
+          acc.night.push(item);
+        }
 
-      return acc;
-    },
-    {
-      morning: [],
-      afternoon: [],
-      night: [],
-    },
-  );
+        return acc;
+      },
+      {
+        morning: [],
+        afternoon: [],
+        night: [],
+      },
+    );
 
   return (
     <div className="flex-1 py-6 px-4 xl:px-20 2xl:px-40 lg:overflow-y-scroll">
@@ -50,26 +53,18 @@ export function ListAppointments() {
       </header>
 
       <main className="space-y-8">
-        <Listcard
-          items={parsedAppointments.morning}
-          icon={CloudSun}
-          title="Manhã"
-          timeInterval="09h-12h"
-        />
-
-        <Listcard
-          items={parsedAppointments.afternoon}
-          icon={CloudSun}
-          title="Tarde"
-          timeInterval="09h-12h"
-        />
-
-        <Listcard
-          items={parsedAppointments.night}
-          icon={CloudSun}
-          title="Noite"
-          timeInterval="09h-12h"
-        />
+        {(Object.keys(PERIODS) as PeriodKey[]).map((key) => {
+          const { period, range, icon } = PERIODS[key];
+          return (
+            <Listcard
+              key={key}
+              items={parsedAppointments[key]}
+              icon={icon}
+              title={period}
+              timeInterval={range}
+            />
+          );
+        })}
       </main>
     </div>
   );
