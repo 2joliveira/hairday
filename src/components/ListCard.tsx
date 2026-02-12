@@ -29,7 +29,7 @@ export function Listcard({ icon, title, timeInterval, items }: ListcardProps) {
         <Text
           as="p"
           variant="text-sm"
-          className="h-8 p-2 w-full text-center text-gray-500"
+          className="h-full p-2 w-full text-center text-gray-500"
         >
           {`Não há agendamentos no período da ${title} !`}{" "}
         </Text>
