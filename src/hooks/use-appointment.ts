@@ -11,7 +11,21 @@ export function useAppointment() {
     setAppointments([...appointments, appointment]);
   }
 
+  function deleteAppointement(id: string) {
+    const filteredAppointments = appointments.filter(
+      (appointment) => appointment.id !== id,
+    );
+
+    console.log(id)
+
+
+    console.log(filteredAppointments)
+
+    setAppointments(filteredAppointments);
+  }
+
   return {
     createAppointment,
+    deleteAppointement,
   };
 }

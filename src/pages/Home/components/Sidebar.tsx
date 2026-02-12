@@ -40,7 +40,11 @@ export function Sidebar() {
 
   const onSubmit: SubmitHandler<Appointment> = (data) => {
     createAppointment(data);
-    reset();
+    reset({
+      id: uuidV4(),
+      date: new Date(),
+      client_name: "",
+    });
   };
 
   const periods: Record<PeriodKey, number[]> = {

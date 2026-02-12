@@ -38,8 +38,7 @@ export function Listcard({ icon, title, timeInterval, items }: ListcardProps) {
           {items.map((item) => (
             <ListItem
               key={item.id}
-              hour={item.hour}
-              clientName={item.client_name}
+              item={item}
             />
           ))}
         </main>
